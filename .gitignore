@@ -1,0 +1,101 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+.cursor/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Environment variables - IMPORTANT: Never commit these!
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+*.env
+
+# Secrets - Never commit these!
+*.pem
+*.key
+*.crt
+credentials.json
+secrets.json
+service-account*.json
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.cache/
+frontend/.env
+frontend/.env.local
+*.local
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+coverage/
+
+# mypy
+.mypy_cache/
+
+# Deployment
+.vercel
+.netlify
+.serverless/
+
+# Misc
+*.bak
+*.tmp
+*.temp
