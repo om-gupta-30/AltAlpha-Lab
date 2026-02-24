@@ -7,7 +7,10 @@ const navItems = [
   { id: 'comparison', label: 'Compare Assets', icon: '⚖️' },
 ]
 
-function Sidebar({ activeView, setActiveView, collapsed, setCollapsed, onReset }) {
+// Pages accessible without stock confirmation
+const UNLOCKED_PAGES = ['dashboard', 'comparison']
+
+function Sidebar({ activeView, setActiveView, collapsed, setCollapsed, onReset, stockConfirmed }) {
   return (
     <aside
       className={`fixed left-0 top-0 h-full bg-gray-900/80 backdrop-blur-xl border-r border-gray-800/50 z-40 transition-all duration-300 ${
@@ -33,28 +36,40 @@ function Sidebar({ activeView, setActiveView, collapsed, setCollapsed, onReset }
       {/* Navigation */}
       <nav className="py-4 px-2">
         <ul className="space-y-1">
-          {navItems.map((item) => (
-            <li key={item.id}>
-              <button
-                onClick={() => setActiveView(item.id)}
-                className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group ${
-                  activeView === item.id
-                    ? 'bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-white border border-blue-500/30'
-                    : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
-                }`}
-              >
-                <span className={`text-xl ${activeView === item.id ? 'scale-110' : 'group-hover:scale-110'} transition-transform`}>
-                  {item.icon}
-                </span>
-                {!collapsed && (
-                  <span className="text-sm font-medium">{item.label}</span>
-                )}
-                {activeView === item.id && !collapsed && (
-                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-                )}
-              </button>
-            </li>
-          ))}
+          {navItems.map((item) => {
+            const isLocked = !stockConfirmed && !UNLOCKED_PAGES.includes(item.id)
+            const isActive = activeView === item.id
+            
+            return (
+              <li key={item.id}>
+                <button
+                  onClick={() => !isLocked && setActiveView(item.id)}
+                  disabled={isLocked}
+                  title={isLocked ? 'Confirm stock & currency first' : item.label}
+                  className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 group ${
+                    isLocked
+                      ? 'text-gray-600 cursor-not-allowed opacity-50'
+                      : isActive
+                        ? 'bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-white border border-blue-500/30'
+                        : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                  }`}
+                >
+                  <span className={`text-xl ${!isLocked && (isActive ? 'scale-110' : 'group-hover:scale-110')} transition-transform ${isLocked ? 'grayscale' : ''}`}>
+                    {item.icon}
+                  </span>
+                  {!collapsed && (
+                    <span className="text-sm font-medium">{item.label}</span>
+                  )}
+                  {isLocked && !collapsed && (
+                    <span className="ml-auto text-xs">🔒</span>
+                  )}
+                  {isActive && !collapsed && !isLocked && (
+                    <div className="ml-auto w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                  )}
+                </button>
+              </li>
+            )
+          })}
         </ul>
       </nav>
 

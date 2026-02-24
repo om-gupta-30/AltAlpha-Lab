@@ -31,6 +31,7 @@ function MainLayout({ children, ticker, setTicker, loading, activeView, setActiv
         collapsed={sidebarCollapsed}
         setCollapsed={setSidebarCollapsed}
         onReset={onReset}
+        stockConfirmed={stockConfirmed}
       />
 
       {/* Header */}
